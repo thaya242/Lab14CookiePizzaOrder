@@ -29,11 +29,11 @@ TOTAL:         43.43
 ```
 
 ## Step 1: Getting Started
-Take a look at the [javadoc](https://csu-compsci-cs163-4.github.io/Lab12EncryptedMessageApp/package-summary.html)<----UPDATE WHEN EXISTS and take note of what methods you need 
+Take a look at the [javadoc](https://csu-compsci-cs163-4.github.io/Lab14CookiePizzaOrder/) and take note of what methods you need 
 to create from scratch, which ones you need to modify from Lab 12, and which ones you already did and don't need to change. Be sure to copy your code over from Lab12 before you begin. You will have to edit a new file, `CookiePizza`, as well as modify `CustomerOrder` to handle the creation of Cookie Pizzas and the printing of receipts.
 
 ## Step 2: Implementation
-Follow the [javadoc](https://csu-compsci-cs163-4.github.io/Lab12EncryptedMessageApp/package-summary.html) and write some code. Make sure to write tests for your code as you work on 
+Follow the [javadoc](https://csu-compsci-cs163-4.github.io/Lab14CookiePizzaOrder/) and write some code. Make sure to write tests for your code as you work on 
 each method.
 
 ## Step 3: Finishing up
