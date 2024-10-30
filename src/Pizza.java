@@ -12,7 +12,7 @@ public class Pizza {
         toppings = new ArrayList<>();
         String[] parts = orderLine.split(","); // Split the order line
 
-        // Dynamically set base price according to pizza type or size (e.g., regular vs. cookie pizza)
+        // Dynamically set base price according to pizza type
         basePrice = determineBasePrice(parts[0].trim().toLowerCase()); // Determine base price based on pizza type
 
         // Add toppings from the order line
@@ -51,13 +51,13 @@ public class Pizza {
      */
     public String getReceipt() {
         StringBuilder receipt = new StringBuilder();
-        receipt.append("PIZZA          ").append(String.format("%.2f", calculatePrice())).append("\n"); // Format the price
-        
-        // Indent and format each topping
+        receipt.append("PIZZA          ").append(String.format("%.2f", calculatePrice())).append("\n");
+
+        // Format each topping with alignment
         for (String topping : toppings) {
-            receipt.append(String.format("%16s", topping)).append("\n"); // Align toppings in a fixed-width field
+            receipt.append(String.format("%15s", topping)).append("\n"); // Align toppings in a fixed-width field
         }
-        
+
         return receipt.toString();
     }
 }
