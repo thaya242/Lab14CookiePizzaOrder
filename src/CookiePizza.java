@@ -2,47 +2,34 @@ import java.util.ArrayList;
 
 public class CookiePizza extends Pizza {
     private String cookieCrust;
-    private ArrayList<String> toppings; // Manage toppings in CookiePizza
+    private ArrayList<String> toppings; // Manage toppings directly in this class
 
-    /**
-     * The constructor will need to do two things. Firstly, it will have to call super() to make
-     * an ArrayList of toppings. Secondly, it will need to assign a new parameter, String cookieCrust.
-     * @param orderLine a String in the format of "Cookie pizza,cookieCrust,topping,topping,etc"
-     */
     public CookiePizza(String orderLine) {
-        super(orderLine); // Calls the Pizza constructor
+        super(orderLine); // Call the parent constructor
         String[] parts = orderLine.split(","); // Split the order line
         this.cookieCrust = parts[1]; // Assign cookie crust from the second part
         this.toppings = new ArrayList<>(); // Initialize toppings list
 
         // Add toppings from the order line
         for (int i = 2; i < parts.length; i++) {
-            this.toppings.add(parts[i].trim()); // Add toppings directly to this class
+            String topping = parts[i].trim();
+            if (!this.toppings.contains(topping)) { // Avoid duplicates
+                this.toppings.add(topping);
+            }
         }
     }
 
-    /**
-     * calculatePrice will be $2.49 less than a normal pizza.
-     * @return the price of a cookiePizza
-     */
     public double calculatePrice() {
-        return super.calculatePrice() - 2.49; // $2.49 less than normal pizza
+        return super.calculatePrice() - 2.49; // $2.49 less than a normal pizza
     }
 
-    /**
-     * getReceipt will look exactly the same as pizza.getReceipt() but with the additional line
-     * to write what cookieCrust the customer ordered.
-     * @return a String to be used on the receipt
-     */
     public String getReceipt() {
-        StringBuilder receipt = new StringBuilder(super.getReceipt()); // Get the pizza receipt
-        receipt.append("       ").append(cookieCrust).append("\n"); // Add the cookie crust
-
-        // Append the toppings from the CookiePizza's own list
+        StringBuilder receipt = new StringBuilder();
+        receipt.append("PIZZA          ").append(String.format("%.2f", calculatePrice())).append("\n"); // Format the price
         for (String topping : toppings) {
-            receipt.append("              ").append(topping).append("\n");
+            receipt.append("              ").append(topping).append("\n"); // Properly indented toppings
         }
-
+        receipt.append("       ").append(cookieCrust).append("\n"); // Add cookie crust at the bottom
         return receipt.toString();
     }
 }
