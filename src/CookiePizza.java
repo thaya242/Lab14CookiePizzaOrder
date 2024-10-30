@@ -1,35 +1,26 @@
-import java.util.ArrayList;
-
 public class CookiePizza extends Pizza {
-    private String cookieCrust; // Specific property for cookie pizza
 
+    /**
+     * Constructor that initializes a CookiePizza order with toppings.
+     * @param orderLine a String in the format of "Cookie Pizza,topping,topping,etc"
+     */
     public CookiePizza(String orderLine) {
-        super(orderLine); // Call the parent constructor
-        String[] parts = orderLine.split(","); // Split the order line
-        this.cookieCrust = parts[1].trim().toUpperCase(); // Assign cookie crust from the second part in uppercase
-
-        // Add toppings from the order line, starting from index 2
-        toppings = new ArrayList<>(); // Initialize toppings list
-        for (int i = 2; i < parts.length; i++) {
-            String topping = parts[i].trim().toUpperCase(); // Ensure toppings are in uppercase
-            if (!this.toppings.contains(topping)) { // Avoid duplicates
-                this.toppings.add(topping);
-            }
-        }
+        super(orderLine);
+        this.basePrice = super.calculatePrice() - 2.49; // Ensures cookie pizza has the correct base price adjustment
     }
 
-    @Override
-    public double calculatePrice() {
-        // Assuming cookie pizzas are $2.49 less than normal pizzas
-        return super.calculatePrice() - 2.49; // Adjust price for cookie pizza
-    }
-
+    /**
+     * Overrides getReceipt to properly align receipt for CookiePizza.
+     */
     @Override
     public String getReceipt() {
-        StringBuilder receipt = new StringBuilder(super.getReceipt()); // Get base receipt
+        StringBuilder receipt = new StringBuilder();
+        receipt.append("PIZZA          ").append(String.format("%.2f", basePrice)).append("\n");
         
-        // Add cookie crust at the bottom with proper alignment
-        receipt.append("       ").append(cookieCrust).append("\n"); // Ensure proper alignment for the cookie crust
+        for (String topping : toppings) {
+            receipt.append(String.format("%15s", topping)).append("\n"); // Align toppings with the same fixed-width formatting
+        }
+
         return receipt.toString();
     }
 }
