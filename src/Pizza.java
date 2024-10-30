@@ -12,8 +12,8 @@ public class Pizza {
         toppings = new ArrayList<>();
         String[] parts = orderLine.split(","); // Split the order line
 
-        // Set base price (can be set according to pizza type)
-        basePrice = 12.97; // Example base price; adjust as needed
+        // Set a fixed base price for the pizza
+        basePrice = 12.48; // Adjust as needed based on your requirements
 
         // Add toppings from the order line
         for (int i = 1; i < parts.length; i++) { // Start from 1 to skip the pizza type
@@ -26,7 +26,7 @@ public class Pizza {
      * @return the total price of the pizza
      */
     public double calculatePrice() {
-        // Assume each topping adds $1.00 to the price
+        // Assuming the toppings add $1.00 each
         return basePrice + (toppings.size() * 1.00); // Example logic for toppings
     }
 
@@ -37,12 +37,20 @@ public class Pizza {
     public String getReceipt() {
         StringBuilder receipt = new StringBuilder();
         receipt.append("PIZZA          ").append(String.format("%.2f", calculatePrice())).append("\n"); // Format the price
-        
+
         // Indent and format each topping
-        for (String topping : toppings) {
-            receipt.append("              ").append(topping).append("\n"); // Indent topping names
+        for (int i = 0; i < toppings.size(); i++) {
+            String topping = toppings.get(i);
+            String indentation = "              "; // Default indentation
+
+            // Increase indentation for subsequent toppings
+            if (i > 0) {
+                indentation += " "; // Add additional space for each subsequent topping
+            }
+
+            receipt.append(indentation).append(topping).append("\n"); // Indent topping names
         }
-        
+
         return receipt.toString();
     }
 }
