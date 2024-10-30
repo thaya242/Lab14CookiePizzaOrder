@@ -1,4 +1,6 @@
-public class CookiePizza extends Pizza{
+import java.util.ArrayList;
+
+public class CookiePizza extends Pizza {
     private String cookieCrust;
 
     /**
@@ -8,8 +10,15 @@ public class CookiePizza extends Pizza{
      * new orderLine string follows a different format.
      * @param orderLine a String in the format of "Cookie pizza,cookieCrust,topping,topping,etc"
      */
-    public CookiePizza(String orderLine){
-        //TODO Student
+    public CookiePizza(String orderLine) {
+        super(orderLine); // Calls the Pizza constructor
+        String[] parts = orderLine.split(","); // Split the order line
+        this.cookieCrust = parts[1]; // Assign cookie crust from the second part
+
+        // Add toppings to the Pizza class
+        for (int i = 2; i < parts.length; i++) {
+            addTopping(parts[i].trim()); // Adding toppings from the remaining parts
+        }
     }
 
     /**
@@ -17,21 +26,18 @@ public class CookiePizza extends Pizza{
      * calculatePrice method.
      * @return the price of a cookiePizza
      */
-    public double calculatePrice(){
-        //TODO Student
+    public double calculatePrice() {
+        return super.calculatePrice() - 2.49; // $2.49 less than normal pizza
     }
 
     /**
      * getReceipt will look exactly the same as pizza.getReceipt() but with the additional line
-     * to write what cookieCrust the customer ordered. For a cookie pizza with strawberries as a topping
-     * and a chocolate chip crust, the method will create the following:
-     * PIZZA           8.99
-     *         STRAWBERRIES
-     *       CHOCOLATE CHIP
-     * Super will also be useful here to prevent us from repeating our code.
+     * to write what cookieCrust the customer ordered.
      * @return a String to be used on the receipt
      */
-    public String getReceipt(){
-        //TODO Student
+    public String getReceipt() {
+        StringBuilder receipt = new StringBuilder(super.getReceipt()); // Get the pizza receipt
+        receipt.append("       ").append(cookieCrust).append("\n"); // Add the cookie crust
+        return receipt.toString();
     }
 }
