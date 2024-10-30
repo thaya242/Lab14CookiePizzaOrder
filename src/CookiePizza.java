@@ -1,35 +1,40 @@
-import java.util.ArrayList;
-
 public class CookiePizza extends Pizza {
-    private String cookieCrust; // Specific property for cookie pizza
+    private String cookieCrust;
 
+    /**
+     * Constructor initializes the cookie crust type and adds toppings.
+     * @param orderLine a String in the format "Cookie pizza,cookieCrust,topping,topping,..."
+     */
     public CookiePizza(String orderLine) {
-        super(orderLine); // Call the parent constructor
-        String[] parts = orderLine.split(","); // Split the order line
-        this.cookieCrust = parts[1].trim().toUpperCase(); // Assign cookie crust from the second part in uppercase
-
-        // Add toppings from the order line, starting from index 2
-        toppings = new ArrayList<>(); // Initialize toppings list
+        // Split orderLine by commas
+        String[] parts = orderLine.split(",");
+        
+        // The second part is the cookie crust type
+        cookieCrust = parts[1].trim();
+        
+        // Add toppings from index 2 onward
         for (int i = 2; i < parts.length; i++) {
-            String topping = parts[i].trim().toUpperCase(); // Ensure toppings are in uppercase
-            if (!this.toppings.contains(topping)) { // Avoid duplicates
-                this.toppings.add(topping);
-            }
+            super.addTopping(parts[i].trim());
         }
     }
 
+    /**
+     * Calculates price, $2.49 less than a normal pizza.
+     * @return the price of the cookie pizza
+     */
     @Override
     public double calculatePrice() {
-        // Calculate price $2.49 less than normal pizza
-        return super.calculatePrice() - 2.49; // Adjust price for cookie pizza
+        return super.calculatePrice() - 2.49;
     }
 
+    /**
+     * Generates the receipt with cookie crust type and toppings.
+     * @return a formatted string for the receipt
+     */
     @Override
     public String getReceipt() {
-        StringBuilder receipt = new StringBuilder(super.getReceipt()); // Get base receipt
-        
-        // Add cookie crust at the bottom with proper alignment
-        receipt.append("       ").append(cookieCrust).append("\n"); // Ensure proper alignment for the cookie crust
+        StringBuilder receipt = new StringBuilder(super.getReceipt());
+        receipt.insert(0, String.format("%20s\n", cookieCrust.toUpperCase()));
         return receipt.toString();
     }
 }
