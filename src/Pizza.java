@@ -17,7 +17,7 @@ public class Pizza {
 
         // Add toppings from the order line
         for (int i = 1; i < parts.length; i++) { // Start from 1 to skip the pizza type
-            toppings.add(parts[i].trim()); // Trim and add toppings
+            toppings.add(parts[i].trim().toUpperCase()); // Trim and add toppings in uppercase
         }
     }
 
@@ -26,7 +26,8 @@ public class Pizza {
      * @return the total price of the pizza
      */
     public double calculatePrice() {
-        return basePrice + (toppings.size() * 1.00); // Example: $1.00 per topping
+        // Assume each topping adds $1.00 to the price
+        return basePrice + (toppings.size() * 1.00); // Example logic for toppings
     }
 
     /**
@@ -36,9 +37,12 @@ public class Pizza {
     public String getReceipt() {
         StringBuilder receipt = new StringBuilder();
         receipt.append("PIZZA          ").append(String.format("%.2f", calculatePrice())).append("\n"); // Format the price
+        
+        // Indent and format each topping
         for (String topping : toppings) {
-            receipt.append("              ").append(topping.toUpperCase()).append("\n"); // Indented topping names
+            receipt.append("              ").append(topping).append("\n"); // Indent topping names
         }
+        
         return receipt.toString();
     }
 }
