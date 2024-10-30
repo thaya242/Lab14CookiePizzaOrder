@@ -20,7 +20,7 @@ public class CookiePizza extends Pizza {
 
     @Override
     public double calculatePrice() {
-        // Calculate price $2.49 less than normal pizza
+        // Assuming cookie pizzas are $2.49 less than normal pizzas
         return super.calculatePrice() - 2.49; // Adjust price for cookie pizza
     }
 
