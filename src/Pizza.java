@@ -8,6 +8,10 @@ public class Pizza {
      * Constructor that initializes the pizza based on the order line.
      * @param orderLine a String in the format of "Pizza,topping,topping,etc"
      */
+    public void addTopping(String topping) {
+    toppings.add(topping);
+    }
+
     public Pizza(String orderLine) {
         toppings = new ArrayList<>();
         String[] parts = orderLine.split(","); // Split the order line
