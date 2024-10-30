@@ -12,8 +12,8 @@ public class Pizza {
         toppings = new ArrayList<>();
         String[] parts = orderLine.split(","); // Split the order line
 
-        // Set a fixed base price for the pizza
-        basePrice = 12.48; // Adjust as needed based on your requirements
+        // Dynamically set base price according to pizza type or size (e.g., regular vs. cookie pizza)
+        basePrice = determineBasePrice(parts[0].trim().toLowerCase()); // Determine base price based on pizza type
 
         // Add toppings from the order line
         for (int i = 1; i < parts.length; i++) { // Start from 1 to skip the pizza type
@@ -22,12 +22,27 @@ public class Pizza {
     }
 
     /**
+     * Determine base price based on pizza type or size.
+     * @param type the type or descriptor of the pizza
+     * @return base price for the pizza
+     */
+    private double determineBasePrice(String type) {
+        switch (type) {
+            case "cookie pizza":
+                return 10.48; // Adjusted price for cookie pizza
+            case "pizza":
+            default:
+                return 12.97; // Standard price for regular pizza
+        }
+    }
+
+    /**
      * Calculate the price of the pizza.
      * @return the total price of the pizza
      */
     public double calculatePrice() {
-        // Assuming the toppings add $1.00 each
-        return basePrice + (toppings.size() * 1.00); // Example logic for toppings
+        // Assume each topping adds $1.00 to the price, but adjust as needed
+        return basePrice + (toppings.size() * 1.00);
     }
 
     /**
@@ -37,20 +52,12 @@ public class Pizza {
     public String getReceipt() {
         StringBuilder receipt = new StringBuilder();
         receipt.append("PIZZA          ").append(String.format("%.2f", calculatePrice())).append("\n"); // Format the price
-
+        
         // Indent and format each topping
-        for (int i = 0; i < toppings.size(); i++) {
-            String topping = toppings.get(i);
-            String indentation = "              "; // Default indentation
-
-            // Increase indentation for subsequent toppings
-            if (i > 0) {
-                indentation += " "; // Add additional space for each subsequent topping
-            }
-
-            receipt.append(indentation).append(topping).append("\n"); // Indent topping names
+        for (String topping : toppings) {
+            receipt.append(String.format("%16s", topping)).append("\n"); // Align toppings in a fixed-width field
         }
-
+        
         return receipt.toString();
     }
 }
