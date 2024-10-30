@@ -38,12 +38,14 @@ public class CustomerOrder {
      * @param filename the name of a file
      */
    //Copy your code from Lab 12 and implement the new requirements
-    public void readOrder(String filename) {
+     public void readOrder(String filename) {
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 if (line.toLowerCase().startsWith("pizza")) {
                     pizzas.add(new Pizza(line));
+                } else if (line.toLowerCase().startsWith("cookie pizza")) {
+                    pizzas.add(new CookiePizza(line)); // Create a CookiePizza object
                 } else if (line.toLowerCase().startsWith("salad")) {
                     salads.add(new Salad(line));
                 }
@@ -60,8 +62,8 @@ public class CustomerOrder {
      * System.out.println(customerOrder1).
      * @return the result of buildReceipt()
      */
-    public String toString(){
-        //TODO Student
+    public String toString() {
+        return buildReceipt(); // Directly return the receipt
     }
 
     /**
